@@ -1,7 +1,7 @@
 <template>
   <div id="TrainRender">
     <ol>
-      <li v-for="trains in wagons">{{ trains }}</li>
+      <li v-for="(trains, index) in wagons" :key="index">{{ trains }}</li>
       </ol>
   </div>
 </template>
