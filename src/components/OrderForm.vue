@@ -19,6 +19,7 @@
 
 <script>
 import TrainRender from './TrainRender.vue';
+import serverBus from '../app';
 
 export default {
   name: 'OrderForm',
@@ -45,8 +46,12 @@ export default {
   components: {
     TrainRender,
   },
+  created() {
+    serverBus.$on('deleteWagon', (wagonIndex) => {
+      this.wagons.splice(wagonIndex, 1);
+    });
+  },
 };
-
 
 </script>
 

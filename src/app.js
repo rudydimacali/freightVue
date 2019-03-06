@@ -3,6 +3,9 @@ import App from './App.vue';
 
 Vue.config.productionTip = false;
 
+const serverBus = new Vue();
+export default serverBus;
+
 // eslint-disable-next-line no-new
 new Vue({
   el: '#app',
