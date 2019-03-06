@@ -12,15 +12,19 @@
         <option v-for="(type, index) in tankTypes" :value="type" :key="index">{{ type }}</option>
       </select>
     </form>
+    <TrainRender :wagons="wagons"/>
   </div>
 </template>
 
+
 <script>
+import TrainRender from './TrainRender.vue';
+
 export default {
   name: 'OrderForm',
   data() {
     return {
-      wagons: [],
+      wagons: ['Test'],
       wagonTypes: ['Open', 'Covered', 'Flat', 'Tank'],
       coveredTypes: ['Regular', 'Refrigerated', 'Livestock'],
       tankTypes: ['Liquid', 'Gas', 'Refrigerated Liquid', 'Refrigerated Gas'],
@@ -29,6 +33,9 @@ export default {
     };
   },
   methods: {
+  },
+  components: {
+    TrainRender,
   },
 };
 
