@@ -1,7 +1,7 @@
 <template>
   <div id="OrderFormContainer">
     <h1>Freight Train Order Form</h1>
-    <form id="OrderForm">
+    <form id="OrderForm" v-if="!completed">
       <select v-model="parentWagonType" @change="changeWagon">
         <option v-for="(type, index) in wagonTypes" :value="type" :key="index">{{ type }}</option>
       </select>
@@ -13,7 +13,9 @@
       </select>
       <button class="addWagon" v-on:click.prevent="addWagon">Add Wagon</button>
     </form>
-    <TrainRender :wagons="wagons"/>
+    <TrainRender :wagons="wagons" :completed="completed"/>
+    <button v-if="!completed" class="completeOrder" v-on:click.prevent="completeOrder">Complete Order</button>
+    <button v-if="completed" class="orderAgain" v-on:click.prevent="orderAgain">Create New Order</button>
   </div>
 </template>
 
@@ -31,6 +33,8 @@ export default {
       tankTypes: ['Liquid', 'Gas', 'Refrigerated Liquid', 'Refrigerated Gas'],
       parentWagonType: 'Open',
       subWagonType: 'Open',
+      previousOrder: [],
+      completed: false,
     };
   },
   methods: {
@@ -41,6 +45,13 @@ export default {
       if (this.parentWagonType === 'Covered') this.subWagonType = 'Regular';
       if (this.parentWagonType === 'Tank') this.subWagonType = 'Liquid';
       if (this.parentWagonType === 'Open' || this.parentWagonType === 'Flat') this.subWagonType = this.parentWagonType;
+    },
+    completeOrder() {
+      this.completed = true;
+    },
+    orderAgain() {
+      this.wagons = [];
+      this.completed = false;
     },
   },
   components: {
