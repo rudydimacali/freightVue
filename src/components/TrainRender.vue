@@ -1,7 +1,7 @@
 <template>
   <div id="TrainRender">
-    <draggable v-if="!completed" v-model="wagons" @start="drag=true" @end="drag=false">
-      <h4 v-if="wagons.length > 0">Click and Drag to Reorder Carts</h4>
+    <h4 v-if="wagons.length > 0 && !completed">Click and Drag to Reorder Carts</h4>
+    <draggable v-if="!completed" :list="wagons" @start="drag=true" @end="drag=false">
       <div class="dragItem" v-for="(trains, index) in wagons" :key="index" :value="index">{{ index + 1 }}. {{ trains }}
         <button class="deleteWagon" :value="index" v-on:click.prevent="deleteWagon">Delete</button>
       </div>
@@ -13,6 +13,7 @@
         <div class="wagonText">{{ index + 1 }}. {{ trains }}</div>
       </div>
     </div>
+    <div v-if="completed">{{wagons.length}} wagon(s) ordered!</div>
   </div>
 </template>
 
@@ -55,7 +56,7 @@ export default {
 <style scoped>
 
 .wagonText {
-  margin-top: -70%;
+  margin-top: -75%;
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
